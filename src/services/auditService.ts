@@ -7,7 +7,7 @@ export interface AuditEntry {
     adminEmail: string;
 }
 
-const API_URL = 'http://localhost:5000/api/audit-logs';
+const API_URL = '/api/audit-logs';
 
 export const auditService = {
     getAllLogs: async (): Promise<AuditEntry[]> => {

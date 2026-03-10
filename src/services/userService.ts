@@ -1,6 +1,6 @@
 import { AdminUser } from '../components/adminData';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = '/api';
 
 export interface UserData extends AdminUser {
     password?: string;

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/stats';
+const API_URL = '/api/stats';
 
 export interface DashboardStats {
     totalUsers: number;

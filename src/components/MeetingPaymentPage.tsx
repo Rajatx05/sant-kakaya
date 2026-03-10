@@ -78,7 +78,7 @@ export default function MeetingPaymentPage({
       }
 
       // 1. Create order on backend
-      const res = await fetch('http://localhost:5000/api/payments/create-order', {
+      const res = await fetch('/api/payments/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -101,7 +101,7 @@ export default function MeetingPaymentPage({
         order_id: order.id,
         handler: async function (response: any) {
           // 3. Verify payment on backend
-          const verifyRes = await fetch('http://localhost:5000/api/payments/verify', {
+          const verifyRes = await fetch('/api/payments/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

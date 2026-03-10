@@ -34,6 +34,12 @@ app.get('/', (req, res) => {
     res.send('Matrimonial API is running...');
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+// For Vercel
+export default app;

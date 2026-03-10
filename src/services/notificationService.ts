@@ -6,7 +6,7 @@ export interface AdminNotification {
     sentAt: string;
 }
 
-const API_URL = 'http://localhost:5000/api/notifications';
+const API_URL = '/api/notifications';
 
 export const notificationService = {
     getHistory: async (): Promise<AdminNotification[]> => {
