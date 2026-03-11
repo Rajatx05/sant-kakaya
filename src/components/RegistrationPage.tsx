@@ -59,8 +59,10 @@ interface FormData {
   familyCountry: string;
   familyIncome: string;
   dietaryHabits: string;
-  hobbies: string;
-  languages: string;
+  hobbies: any;
+  otherHobbies?: string;
+  languages: any;
+  otherLanguages?: string;
   preferredAgeMin: string;
   preferredAgeMax: string;
   preferredHeightMin: string;
@@ -200,9 +202,44 @@ export default function RegistrationPage({ onNavigate, onGoBack, onSetPremium, o
   };
 
   const onSubmit = async (data: FormData, isPremium: boolean) => {
+    // Format languages and hobbies from objects to comma-separated strings
+    let formattedLanguages = '';
+    if (data.languages && typeof data.languages === 'object') {
+      formattedLanguages = Object.entries(data.languages)
+        .filter(([_, value]) => value)
+        .map(([key, _]) => key.charAt(0).toUpperCase() + key.slice(1))
+        .join(', ');
+    } else if (typeof data.languages === 'string') {
+      formattedLanguages = data.languages;
+    }
+    
+    if (data.otherLanguages) {
+      formattedLanguages = formattedLanguages 
+        ? `${formattedLanguages}, ${data.otherLanguages}`
+        : data.otherLanguages;
+    }
+
+    let formattedHobbies = '';
+    if (data.hobbies && typeof data.hobbies === 'object') {
+      formattedHobbies = Object.entries(data.hobbies)
+        .filter(([_, value]) => value)
+        .map(([key, _]) => key.charAt(0).toUpperCase() + key.slice(1))
+        .join(', ');
+    } else if (typeof data.hobbies === 'string') {
+      formattedHobbies = data.hobbies;
+    }
+    
+    if (data.otherHobbies) {
+      formattedHobbies = formattedHobbies
+        ? `${formattedHobbies}, ${data.otherHobbies}`
+        : data.otherHobbies;
+    }
+
     // Persist user data
     const result = await userService.registerUser({
       ...data,
+      languages: formattedLanguages,
+      hobbies: formattedHobbies
     });
 
     if (!result.success) {
